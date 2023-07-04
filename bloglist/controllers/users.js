@@ -26,7 +26,12 @@ userRouter.post('/', async (request, response) => {
 });
 
 userRouter.get('/', async (request, response) => {
-	const data = await User.find({});
+	const data = await User.find({}).populate('blogs', {
+		title: 1,
+		author: 1,
+		url: 1,
+		likes: 1
+	});
 	response.json(data);
 });
 module.exports = userRouter;

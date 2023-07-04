@@ -1,16 +1,26 @@
 require('express-async-errors');
 const bloglistRouter = require('express').Router();
 const Blog = require('../models/blog');
+const User = require('../models/user');
 
-//Need to include routers after completing the
 bloglistRouter.get('/', async (req, res) => {
-	const data = await Blog.find({});
+	const data = await Blog.find({}).populate('user', { name: 1, username: 1 });
 	res.json(data);
 });
 
 bloglistRouter.post('/', async (req, res) => {
-	const newBlog = new Blog(req.body);
+	const body = req.body;
+	const user = await User.findById(body.user);
+
+	const newBlog = new Blog({
+		...body,
+		user: user._id
+	});
+
 	const response = await newBlog.save();
+
+	user.blogs = user.blogs.concat(response._id);
+	await user.save();
 	res.status(201).json(response);
 });
 

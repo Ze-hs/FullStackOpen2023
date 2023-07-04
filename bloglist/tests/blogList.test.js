@@ -2,6 +2,7 @@ const list_helper = require('../utils/list_helper');
 const app = require('../app');
 const supertest = require('supertest');
 const Blog = require('../models/blog');
+const User = require('../models/user');
 
 const api = supertest(app);
 
@@ -83,5 +84,10 @@ describe('Supertest: Getting blogs from DB', () => {
 			.send({ likes: 999 });
 
 		expect(response.body.likes).toBe(999);
+	});
+
+	test('dummy', async () => {
+		await Blog.deleteMany({});
+		await User.deleteMany({});
 	});
 });

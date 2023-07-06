@@ -5,7 +5,7 @@
 	"main": "index.js",
 	"scripts": {
 		"dev": "NODE_ENV=Development nodemon index.js",
-		"test": "NODE_ENV=Test jest --verbose --runInBand -t 'dummy'"
+		"test": "NODE_ENV=Test jest --verbose --runInBand "
 	},
 	"author": "",
 	"license": "ISC",

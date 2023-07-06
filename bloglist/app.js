@@ -27,9 +27,15 @@ app.use(cors());
 app.use(express.json());
 
 app.use(middleware.requestLogger);
-app.use('/api/blogs', bloglistRouter);
+
 app.use('/api/users', userRouter);
 app.use('/api/login', loginRouter);
+
+//Only blogs router needs the token
+app.use(middleware.tokenExtractor);
+app.use(middleware.userExtractor);
+
+app.use('/api/blogs', bloglistRouter);
 
 app.use(middleware.unknownEndpoint);
 app.use(middleware.errorHandler);

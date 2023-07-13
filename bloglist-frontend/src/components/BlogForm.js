@@ -33,23 +33,26 @@ const BlogForm = ({ setBlogs, blogs, setMessage, user }) => {
 		<form onSubmit={handleCreate}>
 			<label>title</label>
 			<input
+				id={'title'}
 				value={title}
 				onChange={({ target }) => setTitle(target.value)}
 			/>
 			<br />
 			<label>author</label>
 			<input
+				id={'author'}
 				value={author}
 				onChange={({ target }) => setAuthor(target.value)}
 			/>
 			<br />
 			<label>url</label>
 			<input
+				id={'url'}
 				value={url}
 				onChange={({ target }) => setUrl(target.value)}
 			/>
 			<br />
-			<button>create</button>
+			<button id={'create'}>create</button>
 		</form>
 	);
 };

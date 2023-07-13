@@ -36,7 +36,7 @@ const Blog = ({ blog, handleLikes, handleDelete, user }) => {
 	};
 
 	return (
-		<div style={blogStyle}>
+		<div className={'blog'} style={blogStyle}>
 			<div style={hideWhenVisible} className={'whenHidden'}>
 				<p>
 					{`${blog.title} ${blog.author}`}

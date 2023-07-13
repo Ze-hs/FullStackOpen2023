@@ -18,7 +18,10 @@ const App = () => {
 
 	useEffect(() => {
 		if (user) {
-			blogService.getAll().then((blogs) => setBlogs(blogs));
+			blogService.getAll().then((blogs) => {
+				const sortBlogs = blogs.sort((a, b) => b.likes - a.likes);
+				setBlogs(sortBlogs);
+			});
 		}
 	}, [refresh, user]);
 
@@ -40,7 +43,7 @@ const App = () => {
 			blogService.setToken(user.token);
 			setUser(user);
 		} catch (error) {
-			setErrorMessage(error.message);
+			setErrorMessage('Wrong Credentials');
 		}
 		//Reset fields
 		setUsername('');

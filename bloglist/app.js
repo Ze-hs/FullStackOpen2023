@@ -8,7 +8,6 @@ const userRouter = require('./controllers/users');
 const loginRouter = require('./controllers/login');
 const logger = require('./utils/logger');
 const middleware = require('./utils/middleware');
-
 const mongoUrl =
 	process.env.NODE_ENV == 'Production'
 		? config.MONGODB_URI
@@ -27,6 +26,11 @@ app.use(cors());
 app.use(express.json());
 
 app.use(middleware.requestLogger);
+
+if (process.env.NODE_ENV == 'Test') {
+	const resetRouter = require('./controllers/reset');
+	app.use('/api/testing', resetRouter);
+}
 
 app.use('/api/users', userRouter);
 app.use('/api/login', loginRouter);

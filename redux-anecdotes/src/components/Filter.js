@@ -1,11 +1,11 @@
 //Call a action creator
-import { filterChange } from "../reducers/filterReducer";
+import { changeFilter } from "../reducers/filterReducer";
 import { useDispatch } from "react-redux";
 const Filter = () => {
 	const dispatch = useDispatch();
 	const handleChange = (event) => {
 		const filter = event.target.value;
-		dispatch(filterChange(filter));
+		dispatch(changeFilter(filter));
 	};
 
 	const style = {

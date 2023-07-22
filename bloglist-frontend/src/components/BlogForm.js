@@ -1,14 +1,17 @@
 import { useState } from 'react';
-import blogService from '../services/blogs';
+// import blogService from '../services/blogs';
 import { setNotification } from '../reducers/notificationReducer';
-import { useDispatch } from 'react-redux';
+import { createBlogs } from '../reducers/blogReducer';
 
-const BlogForm = ({ setBlogs, blogs, user }) => {
+import { useDispatch, useSelector } from 'react-redux';
+
+const BlogForm = () => {
+	const dispatch = useDispatch();
+	const user = useSelector((state) => state.user);
+
 	const [title, setTitle] = useState('');
 	const [author, setAuthor] = useState('');
 	const [url, setUrl] = useState('');
-
-	const dispatch = useDispatch();
 
 	const handleCreate = async (event) => {
 		const blog = {
@@ -20,11 +23,7 @@ const BlogForm = ({ setBlogs, blogs, user }) => {
 		event.preventDefault();
 
 		try {
-			const response = await blogService.create(blog);
-			setBlogs(blogs.concat({ ...response, user }));
-			setTitle('');
-			setAuthor('');
-			setUrl('');
+			dispatch(createBlogs(blog, user));
 		} catch (error) {
 			dispatch(setNotification(error));
 		}

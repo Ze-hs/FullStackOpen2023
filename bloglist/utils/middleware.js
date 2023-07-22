@@ -38,13 +38,18 @@ const tokenExtractor = (request, response, next) => {
 };
 
 const userExtractor = async (request, response, next) => {
-	const decodedToken = jwt.verify(request.authToken, process.env.SECRET);
+	if (!request.authToken) {
+		request.user = null;
+	} else {
+		const decodedToken = jwt.verify(request.authToken, process.env.SECRET);
 
-	if (!decodedToken) {
-		json.status(400).json({ error: 'token invalid' });
+		if (!decodedToken) {
+			json.status(400).json({ error: 'token invalid' });
+		}
+
+		request.user = await User.findById(decodedToken.id);
 	}
 
-	request.user = await User.findById(decodedToken.id);
 	next();
 };
 

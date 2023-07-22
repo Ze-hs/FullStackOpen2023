@@ -6,7 +6,6 @@ export const useResource = (baseUrl) => {
 
 	useEffect(() => {
 		axios.get(baseUrl).then((response) => {
-			console.log("Hi");
 			setResources(response.data);
 		});
 	}, [baseUrl]);

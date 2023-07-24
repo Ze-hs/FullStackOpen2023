@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { initializeComments } from '../reducers/commentReducer';
 import { useEffect } from 'react';
 import CommentForm from './CommentForm';
+import { List, ListItem } from '@mui/material';
 const CommentList = () => {
 	const id = useParams().id;
 	const dispatch = useDispatch();
@@ -21,11 +22,11 @@ const CommentList = () => {
 			<h3>Comment</h3>
 			<CommentForm id={id} />
 
-			<ul>
+			<List>
 				{comments.map((comment) => (
-					<li key={comment.id}>{comment.text}</li>
+					<ListItem key={comment.id}>{comment.text}</ListItem>
 				))}
-			</ul>
+			</List>
 		</>
 	);
 };

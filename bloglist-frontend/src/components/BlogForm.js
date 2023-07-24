@@ -1,22 +1,21 @@
-import { useState } from 'react';
 import { setNotification } from '../reducers/notificationReducer';
 import { createBlogs } from '../reducers/blogReducer';
-
+import { useField } from '../hooks';
 import { useDispatch, useSelector } from 'react-redux';
-
+import { TextField, Button } from '@mui/material';
 const BlogForm = () => {
 	const dispatch = useDispatch();
 	const user = useSelector((state) => state.userAuth);
 
-	const [title, setTitle] = useState('');
-	const [author, setAuthor] = useState('');
-	const [url, setUrl] = useState('');
+	const title = useField('text');
+	const author = useField('text');
+	const url = useField('text');
 
 	const handleCreate = async (event) => {
 		const blog = {
-			title,
-			author,
-			url
+			title: title.value,
+			author: author.value,
+			url: url.value
 		};
 
 		event.preventDefault();
@@ -30,28 +29,15 @@ const BlogForm = () => {
 
 	return (
 		<form onSubmit={handleCreate}>
-			<label>title</label>
-			<input
-				id={'title'}
-				value={title}
-				onChange={({ target }) => setTitle(target.value)}
-			/>
+			<TextField label="Title" {...title} />
 			<br />
-			<label>author</label>
-			<input
-				id={'author'}
-				value={author}
-				onChange={({ target }) => setAuthor(target.value)}
-			/>
+			<TextField label="Author" {...author} />
 			<br />
-			<label>url</label>
-			<input
-				id={'url'}
-				value={url}
-				onChange={({ target }) => setUrl(target.value)}
-			/>
+			<TextField label="Url" {...url} />
 			<br />
-			<button id={'create'}>create</button>
+			<Button type="submit" id={'create'}>
+				create
+			</Button>
 		</form>
 	);
 };

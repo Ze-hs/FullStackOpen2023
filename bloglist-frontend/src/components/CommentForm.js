@@ -1,7 +1,7 @@
 import { useDispatch } from 'react-redux';
 import { useField } from '../hooks';
 import { addComment } from '../reducers/commentReducer';
-
+import { Button, TextField } from '@mui/material';
 const CommentForm = ({ id }) => {
 	const comment = useField('text');
 	const dispatch = useDispatch();
@@ -13,8 +13,8 @@ const CommentForm = ({ id }) => {
 
 	return (
 		<form onSubmit={handleComment}>
-			<input {...comment} />
-			<button>add comment</button>
+			<TextField label="Add a comment" {...comment} />
+			<Button>add comment</Button>
 		</form>
 	);
 };

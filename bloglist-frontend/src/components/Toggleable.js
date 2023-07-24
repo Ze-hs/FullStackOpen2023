@@ -1,5 +1,5 @@
 import { useState } from 'react';
-
+import { Button } from '@mui/material';
 const Toggleable = ({ children }) => {
 	const [formVisible, setFormVisible] = useState(false);
 
@@ -12,12 +12,12 @@ const Toggleable = ({ children }) => {
 	return (
 		<>
 			<div style={hideWhenVisible}>
-				<button onClick={() => toggleVisible()}> Add new blog</button>
+				<Button onClick={() => toggleVisible()}> Add new blog</Button>
 			</div>
 
 			<div style={showWhenVisible}>
 				{children}
-				<button onClick={() => toggleVisible()}>Cancel</button>
+				<Button onClick={() => toggleVisible()}>Cancel</Button>
 			</div>
 		</>
 	);

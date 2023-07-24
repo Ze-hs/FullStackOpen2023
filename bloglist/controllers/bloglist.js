@@ -36,7 +36,7 @@ bloglistRouter.delete('/:id', async (req, res) => {
 bloglistRouter.put('/:id', async (req, res) => {
 	const response = await Blog.findByIdAndUpdate(req.params.id, req.body, {
 		new: true
-	});
+	}).populate('user', { name: 1, username: 1 });
 	res.json(response);
 });
 

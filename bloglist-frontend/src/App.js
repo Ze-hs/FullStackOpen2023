@@ -14,6 +14,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { initializeBlogs } from './reducers/blogReducer';
 import { initializeUserAuth } from './reducers/userAuthReducer';
 import { initializeUsers } from './reducers/usersReducer';
+import { AppBar, Button, Toolbar, Typography } from '@mui/material';
 
 const App = () => {
 	const dispatch = useDispatch();
@@ -33,12 +34,20 @@ const App = () => {
 
 	return (
 		<div>
-			<div>
-				<Link to="/">Blogs</Link>
-				<Link to="/users">Users</Link>
-				<span>{userAuth.name} logged in</span>
-				<Logout />
-			</div>
+			<AppBar position="static">
+				<Toolbar>
+					<Button color="inherit" to="/" component={Link}>
+						Blogs{' '}
+					</Button>
+					<Button color="inherit" to="/users" component={Link}>
+						Users
+					</Button>
+					<Typography variant="p" color="inherit" component="div">
+						{userAuth.name} logged in
+					</Typography>
+					<Logout />
+				</Toolbar>
+			</AppBar>
 
 			<Routes>
 				<Route path={'/'} element={<BlogList />} />

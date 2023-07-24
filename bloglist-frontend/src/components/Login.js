@@ -3,6 +3,8 @@ import { logIn } from '../reducers/userAuthReducer';
 import { useField } from '../hooks';
 import { useNavigate } from 'react-router-dom';
 
+import { Button, TextField } from '@mui/material';
+
 import Notification from './Notification';
 
 const Login = () => {
@@ -23,18 +25,14 @@ const Login = () => {
 			<Notification />
 			<form onSubmit={handleLogin}>
 				<div>
-					<label>username</label>
-					<input id={'username'} {...username} />
-
+					<TextField label="username" id={'username'} {...username} />
 					<br />
-
-					<label>password</label>
-					<input id={'password'} {...password} />
+					<TextField label="password" id={'password'} {...password} />
 				</div>
 
-				<button id={'login'} type={'submit'}>
+				<Button id={'login'} type={'submit'}>
 					Log in
-				</button>
+				</Button>
 			</form>
 		</>
 	);

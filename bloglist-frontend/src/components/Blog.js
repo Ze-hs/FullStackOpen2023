@@ -2,7 +2,7 @@ import { handleDelete, handleLikes } from '../reducers/blogReducer';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, useNavigate } from 'react-router-dom';
 import CommentList from './CommentList';
-
+import { Button } from '@mui/material';
 const Blog = () => {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
@@ -43,11 +43,11 @@ const Blog = () => {
 			<p className={'url'}>{blog.url}</p>
 			<p className={'likesCounter'}>
 				likes {blog.likes}
-				<button onClick={addLikes}>like</button>
+				<Button onClick={addLikes}>like</Button>
 			</p>
 			<p>{blog.user.name}</p>
 			{blog.user.username === user.username && (
-				<button onClick={removeBlog}>Delete</button>
+				<Button onClick={removeBlog}>Delete</Button>
 			)}
 
 			<CommentList />

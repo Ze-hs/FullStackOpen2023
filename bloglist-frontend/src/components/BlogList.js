@@ -2,7 +2,7 @@ import { useSelector } from 'react-redux';
 import Toggleable from './Toggleable';
 import BlogForm from './BlogForm';
 import MinBlog from './MinBlog';
-
+import { Table, TableBody, TableRow, TableCell } from '@mui/material';
 const BlogList = () => {
 	const blogs = useSelector((state) => state.blogs);
 
@@ -13,9 +13,17 @@ const BlogList = () => {
 				<BlogForm />
 			</Toggleable>
 
-			{blogs.map((blog) => (
-				<MinBlog key={blog.id} blog={blog} />
-			))}
+			<Table>
+				<TableBody>
+					{blogs.map((blog) => (
+						<TableRow key={blog.id}>
+							<TableCell>
+								<MinBlog blog={blog} />
+							</TableCell>
+						</TableRow>
+					))}
+				</TableBody>
+			</Table>
 		</div>
 	);
 };

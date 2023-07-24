@@ -6,8 +6,10 @@ const config = require('./utils/config');
 const bloglistRouter = require('./controllers/bloglist');
 const userRouter = require('./controllers/users');
 const loginRouter = require('./controllers/login');
+const commentRouter = require('./controllers/comment');
 const logger = require('./utils/logger');
 const middleware = require('./utils/middleware');
+
 const mongoUrl =
 	process.env.NODE_ENV == 'Production'
 		? config.MONGODB_URI
@@ -34,7 +36,7 @@ if (process.env.NODE_ENV == 'Test') {
 
 app.use('/api/users', userRouter);
 app.use('/api/login', loginRouter);
-
+app.use('/api/blogs', commentRouter);
 //Only blogs router needs the token
 app.use(middleware.tokenExtractor);
 app.use(middleware.userExtractor);

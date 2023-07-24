@@ -1,39 +1,42 @@
 import { useDispatch } from 'react-redux';
-import { logIn } from '../reducers/userReducer';
+import { logIn } from '../reducers/userAuthReducer';
+import { useField } from '../hooks';
+import { useNavigate } from 'react-router-dom';
 
-const Login = ({ username, password, setUsername, setPassword }) => {
+import Notification from './Notification';
+
+const Login = () => {
 	const dispatch = useDispatch();
+	const username = useField('text');
+	const password = useField('password');
+	const navigate = useNavigate();
 
 	const handleLogin = async (event) => {
 		event.preventDefault();
-		dispatch(logIn(username, password));
+		dispatch(logIn(username.value, password.value));
+		navigate('/');
 	};
 
 	return (
-		<form onSubmit={handleLogin}>
-			<div>
-				<label>username</label>
-				<input
-					id={'username'}
-					value={username}
-					onChange={({ target }) => setUsername(target.value)}
-				/>
+		<>
+			<h2>log in to application</h2>
+			<Notification />
+			<form onSubmit={handleLogin}>
+				<div>
+					<label>username</label>
+					<input id={'username'} {...username} />
 
-				<br />
+					<br />
 
-				<label>password</label>
-				<input
-					id={'password'}
-					type={'password'}
-					value={password}
-					onChange={({ target }) => setPassword(target.value)}
-				/>
-			</div>
+					<label>password</label>
+					<input id={'password'} {...password} />
+				</div>
 
-			<button id={'login'} type={'submit'}>
-				Log in
-			</button>
-		</form>
+				<button id={'login'} type={'submit'}>
+					Log in
+				</button>
+			</form>
+		</>
 	);
 };
 

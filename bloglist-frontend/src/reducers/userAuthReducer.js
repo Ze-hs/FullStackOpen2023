@@ -4,7 +4,7 @@ import blogService from '../services/blogs';
 import { setNotification } from './notificationReducer';
 
 const userSlice = createSlice({
-	name: 'user',
+	name: 'userAuth',
 	initialState: null,
 	reducers: {
 		setUser(state, action) {
@@ -39,7 +39,7 @@ export const logOut = () => {
 	};
 };
 
-export const initializeUser = () => {
+export const initializeUserAuth = () => {
 	return async (dispatch) => {
 		const loggedUserJSON = window.localStorage.getItem('loggedUser');
 		if (loggedUserJSON) {

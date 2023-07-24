@@ -15,7 +15,6 @@ const blogSlice = createSlice({
 
 		deleteBlog(state, action) {
 			const id = action.payload;
-			console.log(id, typeof id);
 			return state.filter((elem) => elem.id !== id);
 		},
 

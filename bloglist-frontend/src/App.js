@@ -1,58 +1,51 @@
-import { useState, useEffect } from 'react';
-import Blog from './components/Blog';
-import Login from './components/Login';
-// import loginService from './services/login';y
-// import blogService from './services/blogs';
-import Logout from './components/Logout';
-import BlogForm from './components/BlogForm';
-import Notification from './components/Notification';
-import Toggleable from './components/Toggleable';
+import { useEffect } from 'react';
 
-// import { setNotification } from './reducers/notificationReducer';
+import Login from './components/Login';
+import Logout from './components/Logout';
+
+import User from './components/User';
+import UserList from './components/UserList';
+import BlogList from './components/BlogList';
+import Blog from './components/Blog';
+
+import { Routes, Route, Link } from 'react-router-dom';
+
 import { useDispatch, useSelector } from 'react-redux';
 import { initializeBlogs } from './reducers/blogReducer';
-import { initializeUser } from './reducers/userReducer';
+import { initializeUserAuth } from './reducers/userAuthReducer';
+import { initializeUsers } from './reducers/usersReducer';
 
 const App = () => {
 	const dispatch = useDispatch();
 
-	const blogs = useSelector((state) => state.blogs);
-	const user = useSelector((state) => state.user);
-	const [username, setUsername] = useState('');
-	const [password, setPassword] = useState('');
+	// const blogs = useSelector((state) => state.blogs);
+	const userAuth = useSelector((state) => state.userAuth);
 
 	useEffect(() => {
-		dispatch(initializeUser());
+		dispatch(initializeUserAuth());
 		dispatch(initializeBlogs());
+		dispatch(initializeUsers());
 	}, []);
 
-	if (user === null) {
-		return (
-			<div>
-				<h2>log in to application</h2>
-				<Notification />
-				<Login
-					username={username}
-					password={password}
-					setPassword={setPassword}
-					setUsername={setUsername}
-				/>
-			</div>
-		);
+	if (!userAuth) {
+		return <Login />;
 	}
 
 	return (
 		<div>
-			<h2>blogs</h2>
-			<p>{user.name} logged in</p>
-			<Logout />
-			{blogs.map((blog) => (
-				<Blog key={blog.id} blog={blog} />
-			))}
+			<div>
+				<Link to="/">Blogs</Link>
+				<Link to="/users">Users</Link>
+				<span>{userAuth.name} logged in</span>
+				<Logout />
+			</div>
 
-			<Toggleable>
-				<BlogForm />
-			</Toggleable>
+			<Routes>
+				<Route path={'/'} element={<BlogList />} />
+				<Route path={'/users'} element={<UserList />} />
+				<Route path={'/users/:id'} element={<User />} />
+				<Route path={'/blog/:id'} element={<Blog />} />
+			</Routes>
 		</div>
 	);
 };

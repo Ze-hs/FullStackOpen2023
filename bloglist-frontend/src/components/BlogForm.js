@@ -1,5 +1,4 @@
 import { useState } from 'react';
-// import blogService from '../services/blogs';
 import { setNotification } from '../reducers/notificationReducer';
 import { createBlogs } from '../reducers/blogReducer';
 
@@ -7,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 const BlogForm = () => {
 	const dispatch = useDispatch();
-	const user = useSelector((state) => state.user);
+	const user = useSelector((state) => state.userAuth);
 
 	const [title, setTitle] = useState('');
 	const [author, setAuthor] = useState('');
